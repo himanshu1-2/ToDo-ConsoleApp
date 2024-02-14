@@ -8,6 +8,8 @@ public class Task {
 
     private static int taskAutoId = 0;
 
+
+
     public Task(int taskId, String taskName, TaskStatus taskStatus, String deadline) {
         this.taskId = taskId;
         this.taskName = taskName;
@@ -31,9 +33,29 @@ public class Task {
         return deadline;
     }
 
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
     public static int getTaskAutoId() {
         taskAutoId++;
         return taskAutoId;
     }
 
+    @Override
+    public String toString() {
+        return taskName+" "+taskId;
+    }
 }

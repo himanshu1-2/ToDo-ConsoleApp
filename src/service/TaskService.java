@@ -20,15 +20,14 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<Task> updateTask(Task task) {
+    public List<Task> updateTask(Task task,int taskId) {
         // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTask'");
+         return taskRepository.updateTask(task,taskId);
     }
 
     @Override
     public List<Task> deleteTask(int taskId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteTask'");
+        return taskRepository.deleteTask(taskId);
     }
 
     @Override

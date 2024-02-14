@@ -9,13 +9,18 @@ import service.TaskService;
 
 public class ToDoController {
 
-  private ITaskService taskService = new TaskService();
+  private final ITaskService taskService = new TaskService();
 
   public void runToDoApp() {
-    while (true) {
-      showMenu();
-      String userAction = getUserInput("Enter the Action Number");
-      performAction(Integer.parseInt(userAction));
+    try{
+      while (true) {
+        showMenu();
+        String userAction = getUserInput("Enter the Action Number");
+        performAction(Integer.parseInt(userAction));
+      }
+    }
+    catch (NumberFormatException e){
+      System.out.println("Invalid input please provide number");
     }
 
   }
@@ -56,22 +61,26 @@ public class ToDoController {
     }
   }
 
-  private boolean addTask() {
+  private void addTask() {
     String taskName = getUserInput("Enter the Task Name");
     String taskDeadline = getUserInput(
         "Enter the Task Deadline in format as 01-Jan-2024 [Optional, Press Enter to skip] ");
 
     Task task = new Task(Task.getTaskAutoId(), taskName, TaskStatus.PENDING, taskDeadline);
-    return taskService.addTask(task);
+    taskService.addTask(task);
 
   }
 
-  private boolean updateTask() {
-    return false;
+  private void updateTask() {
+    String taskId = getUserInput("Enter the Task id to update");
+    taskService.updateTask(null,Integer.parseInt(taskId));
+
   }
 
-  private boolean deleteTask() {
-    return false;
+  private void deleteTask() {
+    String taskId = getUserInput("Enter the Task id");
+    List<Task>task= taskService.deleteTask(Integer.parseInt(taskId));
+
   }
 
   private void getTasks() {
@@ -79,10 +88,8 @@ public class ToDoController {
     System.out.println("-------------------------------------------------------------------------------");
     System.out.println("ID" + " | " + "TASK NAME" + " | " + "TASK STATUS" + " | " + "DEADLINE");
     System.out.println("-------------------------------------------------------------------------------");
-    tasks.forEach(task -> {
-      System.out.println(task.getTaskId() + " | " + task.getTaskName() + " | " + task.getTaskStatus() + " | "
-          + task.getTaskDeadline());
-    });
+    tasks.forEach(task -> System.out.println(task.getTaskId() + " | " + task.getTaskName() + " | " + task.getTaskStatus() + " | "
+        + task.getTaskDeadline()));
     System.out.println("-------------------------------------------------------------------------------");
   }
 

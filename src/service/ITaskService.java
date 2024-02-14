@@ -8,7 +8,7 @@ public interface ITaskService {
 
     public boolean addTask(Task task);
 
-    public List<Task> updateTask(Task task);
+    public List<Task> updateTask(Task task,int taskId);
 
     public List<Task> deleteTask(int taskId);
 
