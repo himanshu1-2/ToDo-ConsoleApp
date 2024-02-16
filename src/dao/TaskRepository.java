@@ -21,15 +21,29 @@ public class TaskRepository {
         return taskDB;
     }
 
-    public List<Task> updateTask(Task task,int taskId) {
-        for(int i=0;i<taskDB.size();i++){
-            if(taskDB.get(i).getTaskId()==taskId){
+    public List<Task> updateTask(String fieldName, String value, int taskId) {
+        for (int i = 0; i < taskDB.size(); i++) {
+            if (taskDB.get(i).getTaskId() == taskId) {
                 Task t = taskDB.get(i);
-                t.setTaskStatus(TaskStatus.DONE);
-                taskDB.set(i,t);
+                switch (fieldName) {
+                    case "taskName" -> t.setTaskName(value);
+                    case "deadline" -> t.setDeadline(value);
+                    case "Done" -> t.setTaskStatus(TaskStatus.DONE);
+                }
+                taskDB.set(i, t);
             }
         }
         return taskDB;
     }
+
+    public Task getTaskById(int id) {
+        for (Task task : taskDB) {
+            if (task.getTaskId() == id)
+                return task;
+        }
+        return null;
+    }
+
+
 
 }

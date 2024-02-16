@@ -65,7 +65,10 @@ public class ToDoController {
     String taskName = getUserInput("Enter the Task Name");
     String taskDeadline = getUserInput(
         "Enter the Task Deadline in format as 01-Jan-2024 [Optional, Press Enter to skip] ");
-
+    if (taskName.isEmpty()) {
+      System.out.println("TaskName should not be empty");
+      return;
+    }
     Task task = new Task(Task.getTaskAutoId(), taskName, TaskStatus.PENDING, taskDeadline);
     taskService.addTask(task);
 
@@ -73,14 +76,25 @@ public class ToDoController {
 
   private void updateTask() {
     String taskId = getUserInput("Enter the Task id to update");
-    taskService.updateTask(null,Integer.parseInt(taskId));
-
+    if (taskService.getTasksById(Integer.parseInt(taskId)) == null) {
+      System.out.println("Invalid taskId ");
+      return;
+    }
+    String fieldName = getUserInput("Enter Name of fieldName (TaskName,deadline,Done) you want to modify");
+    String value=null;
+    if (fieldName.equals("taskName") || fieldName.equals("deadline") || fieldName.equals("Done")) {
+      if (!fieldName.equals("Done")) {
+        value = getUserInput("Enter value of field you want to modify");
+      }
+      taskService.updateTask(fieldName, value, Integer.parseInt(taskId));
+    } else {
+      System.out.println("Invalid field");
+    }
   }
 
   private void deleteTask() {
     String taskId = getUserInput("Enter the Task id");
-    List<Task>task= taskService.deleteTask(Integer.parseInt(taskId));
-
+    taskService.deleteTask(Integer.parseInt(taskId));
   }
 
   private void getTasks() {

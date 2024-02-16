@@ -20,9 +20,9 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<Task> updateTask(Task task,int taskId) {
+    public List<Task> updateTask(String fieldName,String value ,int taskId) {
         // TODO Auto-generated method stub
-         return taskRepository.updateTask(task,taskId);
+         return taskRepository.updateTask(fieldName,value,taskId);
     }
 
     @Override
@@ -35,5 +35,10 @@ public class TaskService implements ITaskService {
         return taskRepository.getTasks();
         // throw new UnsupportedOperationException("Unimplemented method 'showTasks'");
     }
-    
+
+    @Override
+    public Task getTasksById(int id) {
+        return taskRepository.getTaskById(id);
+    }
+
 }
